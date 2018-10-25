@@ -24,7 +24,10 @@ function patchDom (el: HTMLElement, prevVNode: TVNode, nextVNode: TVNode, isCrea
   } else {
     nextPropsNames
       .filter((propName) => nextProps[propName] !== prevProps[propName] && !isEvent(propName))
-      .forEach((propName: string) => el[propName] = nextProps[propName])
+      .forEach((propName: string) => {
+        el.setAttribute(propName, nextProps[propName])
+        el[propName] = nextProps[propName]
+      })
   }
 
   return patchEvents(el, prevVNode, nextVNode)
