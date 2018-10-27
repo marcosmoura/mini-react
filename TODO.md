@@ -10,8 +10,8 @@
 [x] Attempt to create a "patch" cycle updating the dom nodes instead of recreating the entire structure again
 [x] Attempt to create a more robust diff process to patch dom based on vnode
 [ ] Add validations on each step
-  [ ] Add validation to vnode creation
-  [ ] Add validation to render function
+  [x] Add validation to vnode creation
+  [x] Add validation to render function
   [ ] Add validation to createElement function
   [ ] Add validation to setState
   [ ] Add validation to props

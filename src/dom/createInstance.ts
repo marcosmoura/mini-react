@@ -1,12 +1,28 @@
 import createElement from './createElement'
 import createComponentInstance from '../core/createComponentInstance'
+import throwError from 'utils/throwError'
 
-export function getVNode (element: any) {
+export function getVNode (element: any): TVNode {
+  let newElement = element
+
   if (element.render) {
-    return element.render()
+    newElement = element.render()
   }
 
-  return element
+  if (newElement != null && typeof newElement != 'object') {
+    let errorContent = newElement
+
+    if (element.render) {
+      errorContent = {
+        component: element,
+        render: newElement
+      }
+    }
+
+    throwError('RENDER', 'The contents of the return function is invalid', errorContent)
+  }
+
+  return newElement
 }
 
 export function createInstance (element: any) {
