@@ -5,7 +5,7 @@ type TInstanceTree = TInstance | null
 
 let rootInstanceTree: TInstanceTree
 
-export function patch (parentEl: HTMLElement, element: any, instanceTree: TInstanceTree, isRoot?: boolean): TInstanceTree {
+export function patch (parentEl: HTMLElement, element: any, instanceTree: TInstanceTree, isRoot: boolean = false): TInstanceTree {
   if (!instanceTree) {
     const newInstance = createInstance(element)
     const newEl = newInstance.domEl
@@ -19,21 +19,36 @@ export function patch (parentEl: HTMLElement, element: any, instanceTree: TInsta
     return newInstance
   }
 
-  if (!element) {
-    parentEl.removeChild(instanceTree.domEl as Node)
+  const instanceEl: Comment = instanceTree.domEl as Comment
 
-    return null
+  if (instanceEl && (instanceEl as Comment).nodeName === '#comment') {
+    instanceEl.replaceWith(parentEl)
+  }
+
+  if (!element) {
+    const commentProxy = document.createComment(' MiniReact Element ')
+
+    parentEl.replaceWith(commentProxy)
+
+    instanceTree.domEl = commentProxy
+
+    return instanceTree
   }
 
   const oldVNode = instanceTree.vNode
 
   if (element.type === 'component') {
     const newInstance = createInstance(element)
-    const newVNode = newInstance.vNode
 
-    newVNode.props = instanceTree.instance.props
+    if (newInstance && newInstance.vNode) {
+      const newVNode = newInstance.vNode
 
-    return patch(parentEl, newVNode, instanceTree.componentInstance)
+      newVNode.props = instanceTree.instance.props
+
+      return patch(parentEl, newVNode, instanceTree.componentInstance)
+    }
+
+    return patch(parentEl as HTMLElement, null, instanceTree.componentInstance)
   }
 
   const currentInstance: TInstance = instanceTree

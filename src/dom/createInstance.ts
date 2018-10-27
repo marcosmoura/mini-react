@@ -28,7 +28,9 @@ export function getVNode (element: any): TVNode {
 export function createInstance (element: any) {
   let vNode: TVNode = getVNode(element)
 
-  if (vNode.type !== 'component') {
+  if (vNode === null) {
+    return null
+  } else if (vNode.type !== 'component') {
     const domEl: TElement = createElement(vNode)
     const rawInstance: TInstance = {
       domEl,

@@ -1,4 +1,4 @@
-type TElement = Element | SVGAElement | ShadowRoot | DocumentFragment | HTMLElement | Node | string | number | null
+type TElement = Element | SVGAElement | ShadowRoot | DocumentFragment | HTMLElement | Node | Comment | string | number | null
 type TText = string | number
 type TChildren = Array<TVNode | TText>
 
