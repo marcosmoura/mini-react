@@ -1,4 +1,4 @@
-function isFunction (fn: () => void): boolean {
+function isFunction (fn: any): boolean {
   return Object.prototype.toString.call(fn) == '[object Function]'
 }
 

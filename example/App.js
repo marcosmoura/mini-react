@@ -1,3 +1,5 @@
+'use strict'
+
 import { Component, node } from '../dist/mini-react.umd'
 import { css } from 'emotion'
 
@@ -152,16 +154,14 @@ class App extends Component {
 
   setDefinedLimit(e) {
     window.requestAnimationFrame(() => {
-      this.setState((prevState) => ({
+      this.setState({
         definedLimit: parseInt(e.target.value || 0, 10)
-      }))
+      })
     })
   }
 
-  setInputFocus(isFocused) {
-    this.setState((prevState) => ({
-      inputFocus: isFocused
-    }))
+  setInputFocus(inputFocus) {
+    this.setState({ inputFocus })
   }
 
   getTrackWidth () {

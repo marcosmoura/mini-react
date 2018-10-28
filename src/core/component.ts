@@ -1,4 +1,5 @@
 import { patch } from '../dom/render'
+import isFunction from '../utils/isFunction'
 
 function reRender (ctx: any) {
   const context = ctx.$instance
@@ -23,15 +24,21 @@ class Component<P = {}, S = {}> implements TComponent<P, S> {
 
   $instance: TInstanceTree | null = null
 
-  setState (stateFn: (prevState: TState) => TState) {
+  setState (newComponentState: (prevState: TState) => TState | TState) {
     const oldState = { ...(this.state as Object) }
-    const newState = stateFn(oldState)
+    let newState: TState
+
+    if (isFunction(newComponentState)) {
+      newState = { ...newComponentState(oldState) }
+    } else {
+      newState = { ...newComponentState }
+    }
 
     if (this.state !== newState) {
-      this.state = {
+      this.state = Object.freeze({
         ...oldState,
         ...newState
-      }
+      })
 
       reRender(this)
     }
