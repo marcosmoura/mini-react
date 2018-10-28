@@ -77,7 +77,8 @@ const label = css`
 `
 
 const rangeContainer = css`
-  width: 300px;
+  width: 85%;
+  max-width: 500px;
   margin-top: 80px;
   padding-top: 32px;
   display: flex;
