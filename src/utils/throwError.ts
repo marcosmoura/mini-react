@@ -4,7 +4,7 @@ const errorList = {
   DEFAULT: 'Unknown error'
 }
 
-function throwError (type: string, message: string, content: any): Error {
+function throwError (type: string, message?: string, content?: any): Error {
   let error = errorList[type]
 
   if (!errorList[type]) {

@@ -21,7 +21,7 @@ class Component<P = {}, S = {}> implements TComponent<P, S> {
 
   state: S | Object = {}
 
-  $instance: TInstance | null = null
+  $instance: TInstanceTree | null = null
 
   setState (stateFn: () => TState) {
     const newState = stateFn()
