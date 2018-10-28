@@ -27,7 +27,7 @@ const pageHeader = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid ${colors.lightBlue};
+  border-bottom: 1px solid rgba(181, 202, 227, .5);
   font-size: 12px;
   text-transform: uppercase;
   `
