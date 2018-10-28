@@ -2,9 +2,9 @@ import { createInstance, getVNode } from './createInstance'
 import patchDom from './patchDom'
 import createComponentInstance from 'core/createComponentInstance'
 
-let rootInstanceTree
+let rootInstanceTree: TInstanceTree
 
-function patchNewInstance (el, element, replaceEL) {
+function patchNewInstance (el: HTMLElement, element: TInstanceElement, replaceEL: boolean): TInstanceTree {
   if (!element) {
     return null
   }
@@ -12,40 +12,53 @@ function patchNewInstance (el, element, replaceEL) {
   const newInstance = createInstance(element)
 
   if (newInstance) {
+    const domEl: Node = newInstance.domEl as Node
+
     if (replaceEL) {
-      el.replaceWith(newInstance.domEl)
+      el.replaceWith(domEl)
     } else {
-      el.appendChild(newInstance.domEl)
+      el.appendChild(domEl)
     }
   }
 
   return newInstance
 }
 
-function patchInstanceCommentProxy (el, element) {
+function patchInstanceCommentProxy (el: TElement, element: TInstanceElement): TInstanceTree {
   const newVNode = getVNode(element)
 
-  return patch(el, newVNode, null, true)
+  return patch(el as HTMLElement, newVNode, null, true)
 }
 
-function removeDomNode (el) {
-  el.parentNode.removeChild(el)
+function removeDomNode (el: HTMLElement): null {
+  if (el.parentNode) {
+    el.parentNode.removeChild(el)
+  }
 
   return null
 }
 
-function createCommentProxy (el, instanceTree) {
+function createCommentProxy (el: HTMLElement, instanceTree: TInstanceTree): TInstanceTree {
   const commentProxy = document.createComment(' MINIREACT ELEMENT ')
 
-  instanceTree.domEl = commentProxy
+  if (instanceTree) {
+    instanceTree.domEl = commentProxy
 
-  el.replaceWith(instanceTree.domEl)
+    el.replaceWith(instanceTree.domEl)
 
-  return instanceTree
+    return instanceTree
+  }
+
+  return null
 }
 
-function patchInstanceComponent (el, element, instanceTree) {
-  const currentInstance: TInstance = instanceTree
+function patchInstanceComponent (el: HTMLElement, element: TInstanceElement, instanceTree: TInstanceTree): TInstanceTree {
+  const currentInstance: TInstanceTree = instanceTree
+
+  if (!currentInstance) {
+    return null
+  }
+
   const oldVNode = currentInstance.vNode
   const newVNode = getVNode(element)
 
@@ -54,9 +67,13 @@ function patchInstanceComponent (el, element, instanceTree) {
   }
 
   if (newVNode.component) {
-    const componentInstance = createComponentInstance(element.component, newVNode.props)
+    if (element && element.component) {
+      const componentInstance = createComponentInstance(element.component, newVNode.props)
 
-    return patch(el, componentInstance, instanceTree)
+      return patch(el, componentInstance, instanceTree)
+    }
+
+    return null
   }
 
   if (oldVNode.tagName !== newVNode.tagName) {
@@ -75,12 +92,14 @@ function patchInstanceComponent (el, element, instanceTree) {
   return currentInstance
 }
 
-export function patch (el, element, instanceTree, replaceEL = false) {
+export function patch (el: HTMLElement, element: TInstanceElement, instanceTree: TInstanceTree, replaceEL = false): TInstanceTree {
   if (!instanceTree) {
     return patchNewInstance(el, element, replaceEL)
   }
 
-  if (instanceTree.domEl && instanceTree.domEl.nodeName === '#comment') {
+  const commentEl: Comment = instanceTree.domEl as Comment
+
+  if (commentEl && commentEl.nodeName === '#comment') {
     return patchInstanceCommentProxy(el, element)
   }
 
@@ -95,28 +114,32 @@ export function patch (el, element, instanceTree, replaceEL = false) {
   return patchInstanceComponent(el, element, instanceTree)
 }
 
-function patchChildren (parentEl, childInstances, childElements) {
-  const newChildInstances = []
-  const count = Math.max(childInstances.length, childElements.length)
+function patchChildren (el: HTMLElement, childInstances: Array<TInstanceTree>, childElements: TChildren) {
+  if (childInstances) {
+    const newChildInstances = []
+    const count = Math.max(childInstances.length, childElements.length)
 
-  for (let i = 0; i < count; i++) {
-    const childInstance: TInstance = childInstances[i]
-    const childElement: TVNode = childElements[i]
-    let newChildInstance
+    for (let i = 0; i < count; i++) {
+      const childInstance: TInstanceTree = childInstances[i]
+      const childElement: TVNode = childElements[i]
+      let newChildInstance
 
-    if (childInstance) {
-      newChildInstance = patch(childInstance.domEl as HTMLElement, childElement, childInstance)
-    } else {
-      newChildInstance = patch(parentEl as HTMLElement, childElement, null)
+      if (childInstance) {
+        newChildInstance = patch(childInstance.domEl as HTMLElement, childElement, childInstance)
+      } else {
+        newChildInstance = patch(el as HTMLElement, childElement, null)
+      }
+
+      newChildInstances.push(newChildInstance)
     }
 
-    newChildInstances.push(newChildInstance)
+    return newChildInstances
   }
 
-  return newChildInstances
+  return []
 }
 
-function render (component, el) {
+function render (component: TInstanceElement, el: HTMLElement) {
   rootInstanceTree = patch(el, component, rootInstanceTree, true)
 }
 

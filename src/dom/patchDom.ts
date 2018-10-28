@@ -1,10 +1,12 @@
 import isEvent from '../utils/isEvent'
 import patchEvents from './patchEvents'
 
-function patchDom (el: HTMLElement, prevVNode: TVNode, nextVNode: TVNode, isCreating?: boolean) {
+function patchDom (el: TElement, prevVNode: TVNode, nextVNode: TVNode, isCreating?: boolean) {
+  const elementToPatch: HTMLElement = el as HTMLElement
+
   if (nextVNode.type == 'text') {
     if (nextVNode.textContent && prevVNode.textContent != nextVNode.textContent) {
-      el.textContent = nextVNode.textContent.toString()
+      elementToPatch.textContent = nextVNode.textContent.toString()
     }
 
     return el
@@ -17,20 +19,20 @@ function patchDom (el: HTMLElement, prevVNode: TVNode, nextVNode: TVNode, isCrea
 
   prevPropsNames
     .filter((propName) => !nextPropsNames.includes(propName))
-    .forEach((propName: string) => el.removeAttribute(propName))
+    .forEach((propName: string) => elementToPatch.removeAttribute(propName))
 
   if (isCreating) {
-    nextPropsNames.forEach((propName: string) => !isEvent(propName) && el.setAttribute(propName, nextProps[propName]))
+    nextPropsNames.forEach((propName: string) => !isEvent(propName) && elementToPatch.setAttribute(propName, nextProps[propName]))
   } else {
     nextPropsNames
       .filter((propName) => nextProps[propName] !== prevProps[propName] && !isEvent(propName))
       .forEach((propName: string) => {
-        el.setAttribute(propName, nextProps[propName])
-        el[propName] = nextProps[propName]
+        elementToPatch.setAttribute(propName, nextProps[propName])
+        elementToPatch[propName] = nextProps[propName]
       })
   }
 
-  return patchEvents(el, prevVNode, nextVNode)
+  return patchEvents(elementToPatch, prevVNode, nextVNode)
 }
 
 export default patchDom

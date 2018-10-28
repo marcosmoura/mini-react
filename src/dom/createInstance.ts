@@ -25,7 +25,7 @@ export function getVNode (element: any): TVNode {
   return newElement
 }
 
-export function createInstance (element: any) {
+export function createInstance (element: TInstanceElement): TInstanceTree {
   let vNode: TVNode = getVNode(element)
 
   if (vNode === null) {
@@ -39,9 +39,9 @@ export function createInstance (element: any) {
     }
 
     if (domEl && vNode.children && vNode.children.length > 0) {
-      const childInstances: Array<TInstance> = vNode.children.map(createInstance)
+      const childInstances: Array<TInstanceTree> = vNode.children.map(createInstance)
 
-      childInstances.forEach(({ domEl: childDomEl }: TInstance) => (
+      childInstances.forEach(({ domEl: childDomEl }: TInstanceTree) => (
         childDomEl && (domEl as HTMLElement).appendChild(childDomEl as HTMLElement)
       ))
 
@@ -57,7 +57,7 @@ export function createInstance (element: any) {
   }
 
   const componentInstance: any = createComponentInstance(element.component, vNode.props)
-  const newInstance: TInstance = createInstance(componentInstance)
+  const newInstance: TInstanceTree = createInstance(componentInstance)
 
   return {
     ...newInstance,

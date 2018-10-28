@@ -1,6 +1,6 @@
 import isClass from '../utils/isClass'
 
-function createComponentInstance (Component: TComponent<TProps, TState>, props: TProps) {
+function createComponentInstance (Component: TInstanceElement, props: TProps) {
   let componentInstance = null
 
   if (isClass(Component)) {

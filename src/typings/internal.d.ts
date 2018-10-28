@@ -1,6 +1,6 @@
 type TElement = Element | SVGAElement | ShadowRoot | DocumentFragment | HTMLElement | Node | Comment | string | number | null
 type TText = string | number
-type TChildren = Array<TVNode | TText>
+type TChildren = Array<TVNode>
 
 type TProps = {
   children?: TChildren
@@ -12,7 +12,7 @@ interface TRawNode {
   children?: TChildren,
   tagName: string,
   textContent: TText,
-  componentClass<P, S>(): TComponent<P, S>,
+  componentClass: TInstanceElement,
   props: Object
 }
 
@@ -21,8 +21,11 @@ interface TInstance {
   componentInstance?: any,
   domEl: TElement,
   vNode: TVNode,
-  childInstances: Array<TInstance>
+  childInstances: Array<TInstanceTree>
 }
+
+type TInstanceTree = TInstance | null
+type TInstanceElement = TVNode | null
 
 interface TVNode {
   type: string,
@@ -30,7 +33,7 @@ interface TVNode {
   props: TProps,
   tagName?: string,
   textContent?: TText,
-  component?<P, S>(): TComponent<P, S>,
+  component: TInstanceElement,
   children?: TChildren
 }
 
