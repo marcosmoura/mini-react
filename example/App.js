@@ -91,8 +91,9 @@ const rangeTrack = css`
   top: -4px;
   left: 0;
   z-index: 1;
-  border-radius: 8px;
   appearance: none;
+  pointer-events: none;
+  border-radius: 8px;
   background-color: ${colors.blue};
 `
 
@@ -111,6 +112,12 @@ const range = css`
     outline: none;
   }
 
+  &:active::-webkit-slider-thumb {
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, .4);
+  }
+
   &::-webkit-slider-thumb {
     width: 40px;
     height: 40px;
@@ -120,6 +127,7 @@ const range = css`
     border-radius: 50%;
     background-color: ${colors.darkBlue};
     box-shadow: 0 4px 5px rgba(0, 0, 0, .4);
+    transition: .275s cubic-bezier(.4, 0, .2, 1);
   }
 `
 

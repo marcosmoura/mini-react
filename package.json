@@ -30,6 +30,7 @@
     "@babel/preset-env": "^7.1.0",
     "@types/jest": "^23.3.7",
     "babel-loader": "^8.0.4",
+    "babel-plugin-emotion": "^9.2.11",
     "concurrently": "^4.0.1",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.6.0",
