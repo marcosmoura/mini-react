@@ -8,6 +8,8 @@ const colors = {
   darkBlue: '#006AE5'
 }
 
+const defaultTransition = '.275s cubic-bezier(.4, 0, .2, 1)'
+
 const appContainer = css`
   height: 100vh;
   display: flex;
@@ -41,6 +43,11 @@ const inputContainer = css`
   position: relative;
   border: dotted ${colors.lightBlue};
   border-width: 0 0 2px;
+  transition: ${defaultTransition};
+`
+
+const inputContainerFocus = css`
+  border-color: ${colors.darkBlue};
 `
 
 const inputLabel = css`
@@ -51,7 +58,7 @@ const inputLabel = css`
   span {
     opacity: 0;
   }
-  `
+`
 
 const input = css`
   width: 100%;
@@ -128,7 +135,7 @@ const range = css`
     border-radius: 50%;
     background-color: ${colors.darkBlue};
     box-shadow: 0 4px 5px rgba(0, 0, 0, .4);
-    transition: .275s cubic-bezier(.4, 0, .2, 1);
+    transition: ${defaultTransition};
   }
 `
 
@@ -139,6 +146,7 @@ class App extends Component {
     this.state = {
       definedLimit: 2500,
       maxLimit: 5000,
+      inputFocus: false
     }
   }
 
@@ -150,6 +158,12 @@ class App extends Component {
     })
   }
 
+  setInputFocus(isFocused) {
+    this.setState((prevState) => ({
+      inputFocus: isFocused
+    }))
+  }
+
   getTrackWidth () {
     const { maxLimit, definedLimit } = this.state
 
@@ -157,7 +171,7 @@ class App extends Component {
   }
 
   render() {
-    const { maxLimit, definedLimit } = this.state
+    const { maxLimit, definedLimit, inputFocus } = this.state
 
     return node({
       tagName: 'div',
@@ -174,7 +188,7 @@ class App extends Component {
           children: [
             node({
               tagName: 'div',
-              class: inputContainer,
+              class: inputFocus ? `${inputContainer} ${inputContainerFocus}` : inputContainer,
               children: [
                 node({
                   tagName: 'input',
@@ -184,6 +198,8 @@ class App extends Component {
                   maxLength: maxLimit.toString().length,
                   value: definedLimit,
                   oninput: e => this.setDefinedLimit(e),
+                  onfocus: e => this.setInputFocus(true),
+                  onblur: e => this.setInputFocus(false)
                 }),
                 node({
                   tagName: 'div',
@@ -198,7 +214,7 @@ class App extends Component {
                     }),
                     node({
                       textContent: ',00'
-                    }),
+                    })
                   ]
                 })
               ]
@@ -208,7 +224,7 @@ class App extends Component {
               props: {
                 maxLimit,
                 definedLimit
-              },
+              }
             }),
             node({
               tagName: 'div',
@@ -234,8 +250,8 @@ class App extends Component {
                   min: 0,
                   max: maxLimit,
                   value: definedLimit,
-                  oninput: e => this.setDefinedLimit(e),
-                }),
+                  oninput: e => this.setDefinedLimit(e)
+                })
               ]
             })
           ]

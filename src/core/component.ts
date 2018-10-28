@@ -23,12 +23,13 @@ class Component<P = {}, S = {}> implements TComponent<P, S> {
 
   $instance: TInstanceTree | null = null
 
-  setState (stateFn: () => TState) {
-    const newState = stateFn()
+  setState (stateFn: (prevState: TState) => TState) {
+    const oldState = { ...(this.state as Object) }
+    const newState = stateFn(oldState)
 
     if (this.state !== newState) {
       this.state = {
-        ...this.state,
+        ...oldState,
         ...newState
       }
 
