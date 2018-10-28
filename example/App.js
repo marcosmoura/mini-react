@@ -180,6 +180,8 @@ class App extends Component {
                   tagName: 'input',
                   class: input,
                   type: 'text',
+                  max: maxLimit,
+                  maxLength: maxLimit.toString().length,
                   value: definedLimit,
                   oninput: e => this.setDefinedLimit(e),
                 }),
