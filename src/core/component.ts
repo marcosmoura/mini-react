@@ -11,7 +11,7 @@ function reRender (ctx: any) {
 
 class Component<P = {}, S = {}> implements TComponent<P, S> {
 
-  constructor (props: P, el: TElement) {
+  constructor (props: P) {
     this.props = props
   }
 
@@ -19,7 +19,7 @@ class Component<P = {}, S = {}> implements TComponent<P, S> {
     children?: TChildren
   } & P
 
-  state: S | null = null
+  state: S | Object = {}
 
   $instance: TInstance | null = null
 

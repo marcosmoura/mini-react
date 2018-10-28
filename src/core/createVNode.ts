@@ -1,7 +1,7 @@
-import isEvent from 'utils/isEvent'
-import isFunction from 'utils/isFunction'
-import isClass from 'utils/isClass'
-import throwError from 'utils/throwError'
+import isEvent from '../utils/isEvent'
+import isFunction from '../utils/isFunction'
+import isClass from '../utils/isClass'
+import throwError from '../utils/throwError'
 
 function validateVNode (node: TRawNode): void {
   const { componentClass: component, tagName, children, props, ...domProps } = node
