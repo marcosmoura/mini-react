@@ -1,5 +1,5 @@
-const isClass = (clazz: any): boolean => {
-  return typeof clazz === 'function' && /^\s*class\s+/.test(clazz.toString())
+function isClass (clazz: any): boolean {
+  return typeof clazz === 'function' && /_class\S+/i.test(clazz.toString())
 }
 
 export default isClass

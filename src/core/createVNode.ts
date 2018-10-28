@@ -1,12 +1,13 @@
 import isEvent from '../utils/isEvent'
 import isFunction from '../utils/isFunction'
 import isClass from '../utils/isClass'
+import isValidTextContent from '../utils/isValidTextContent'
 import throwError from '../utils/throwError'
 
 function validateVNode (node: TRawNode): void {
-  const { componentClass: component, tagName, children, props, ...domProps } = node
+  const { componentClass: component, tagName, children, textContent, props, ...domProps } = node
 
-  if (!component && !tagName) {
+  if (!component && !tagName && !isValidTextContent(textContent)) {
     throwError('VNODE', 'The node is missing a component or a valid tagName', node)
   }
 
@@ -47,13 +48,19 @@ function createVNode (node: TRawNode): TVNode {
     vNode.type = 'element'
   }
 
-  if (textContent && vNode.children) {
-    vNode.children.unshift({
+  if (isValidTextContent(textContent) && vNode.children) {
+    const childText: TVNode = {
       domProps: {},
       props: {},
       textContent,
       type: 'text'
-    })
+    }
+
+    if (tagName || component) {
+      vNode.children.unshift(childText)
+    } else {
+      return childText
+    }
   }
 
   return vNode

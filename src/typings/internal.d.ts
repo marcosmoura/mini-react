@@ -12,7 +12,7 @@ interface TRawNode {
   children?: TChildren,
   tagName: string,
   textContent: TText,
-  componentClass: TInstanceElement,
+  componentClass?: TInstanceElement,
   props: Object
 }
 
@@ -33,7 +33,7 @@ interface TVNode {
   props: TProps,
   tagName?: string,
   textContent?: TText,
-  component: TInstanceElement,
+  component?: TInstanceElement,
   children?: TChildren
 }
 

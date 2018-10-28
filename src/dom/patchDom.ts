@@ -1,15 +1,16 @@
 import isEvent from '../utils/isEvent'
+import isValidTextContent from '../utils/isValidTextContent'
 import patchEvents from './patchEvents'
 
-function patchDom (el: TElement, prevVNode: TVNode, nextVNode: TVNode, isCreating?: boolean) {
+function patchDom (el: TElement, prevVNode: TVNode, nextVNode: TVNode, isCreating?: boolean): HTMLElement {
   const elementToPatch: HTMLElement = el as HTMLElement
 
   if (nextVNode.type == 'text') {
-    if (nextVNode.textContent && prevVNode.textContent != nextVNode.textContent) {
-      elementToPatch.textContent = nextVNode.textContent.toString()
+    if (isValidTextContent(nextVNode.textContent) && prevVNode.textContent != nextVNode.textContent) {
+      elementToPatch.textContent = (nextVNode.textContent as string).toString()
     }
 
-    return el
+    return elementToPatch
   }
 
   const prevProps = prevVNode.domProps

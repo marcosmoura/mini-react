@@ -9,3 +9,11 @@ w.node = node
 w.MiniReact = {
   render
 }
+
+export {
+  render,
+  Component,
+  node
+}
+
+export default { render }
