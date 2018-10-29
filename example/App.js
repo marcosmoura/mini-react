@@ -30,7 +30,7 @@ const pageHeader = css`
   border-bottom: 1px solid rgba(181, 202, 227, .5);
   font-size: 12px;
   text-transform: uppercase;
-  `
+`
 
 const content = css`
   flex: 1;
@@ -154,9 +154,13 @@ class App extends Component {
 
   setDefinedLimit(e) {
     window.requestAnimationFrame(() => {
-      this.setState({
-        definedLimit: parseInt(e.target.value || 0, 10)
-      })
+      let definedLimit = parseInt(e.target.value || 0, 10)
+
+      if (definedLimit > this.state.maxLimit) {
+        definedLimit = this.state.maxLimit
+      }
+
+      this.setState({ definedLimit })
     })
   }
 
