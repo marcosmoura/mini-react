@@ -1,11 +1,7 @@
 import patchDom from './patchDom'
 
 function createElementByText ({ textContent }: TVNode): Text | null {
-  if (typeof textContent !== 'undefined') {
-    return document.createTextNode(textContent.toString())
-  }
-
-  return null
+  return document.createTextNode((textContent as string).toString())
 }
 
 function createElementByTagName (vNode: TVNode): TElement {

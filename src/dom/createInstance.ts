@@ -3,18 +3,11 @@ import createElement from './createElement'
 import throwError from '../utils/throwError'
 import deepFreeze from '../utils/deepFreeze'
 
-export function getVNode (element: any): TVNode {
+export function getVNode (element: any): TInstanceElement {
   let newElement = element
 
   if (element.render) {
     newElement = element.render()
-
-    if (element.props) {
-      newElement.props = deepFreeze({
-        ...newElement.props,
-        ...element.props
-      })
-    }
   }
 
   if (newElement != null && typeof newElement != 'object') {
@@ -28,6 +21,17 @@ export function getVNode (element: any): TVNode {
     }
 
     throwError('RENDER', 'The contents of the render function are invalid', errorContent)
+  }
+
+  if (!newElement) {
+    return null
+  }
+
+  if (element.props) {
+    newElement.props = deepFreeze({
+      ...newElement.props,
+      ...element.props
+    })
   }
 
   return newElement

@@ -2,8 +2,6 @@ import { createInstance, getVNode } from './createInstance'
 import patchDom from './patchDom'
 import createComponentInstance from '../core/createComponentInstance'
 
-let rootInstanceTree: TInstanceTree
-
 function patchNewInstance (el: HTMLElement, element: TInstanceElement, replaceEL: boolean): TInstanceTree {
   if (!element) {
     return null
@@ -157,7 +155,7 @@ function patchChildren (el: HTMLElement, childInstances: Array<TInstanceTree>, c
 }
 
 function render (component: TInstanceElement, el: HTMLElement) {
-  rootInstanceTree = patch(el, component, rootInstanceTree, true)
+  patch(el, component, null, true)
 }
 
 export default render

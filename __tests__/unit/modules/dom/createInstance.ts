@@ -1,3 +1,4 @@
+import Component from '@/core/component'
 import { createInstance, getVNode } from '@/dom/createInstance'
 import createComponentInstance from '@/core/createComponentInstance'
 import vNodeWithTagName from 'test/fixtures/vNodeWithTagName'
@@ -36,10 +37,30 @@ it('throw error when passing invalid VNode', () => {
   expect(consoleSpy).toReturnWith('The contents of the render function are invalid')
 })
 
+it('throw error when passing invalid VNode from render function', () => {
+  const componentInstance = new class WrongComponent extends Component {
+    render () {
+      return 'string'
+    }
+  }
+  const instance = () => createInstance(componentInstance)
+  let consoleSpy = jest.spyOn(console, 'error').mockImplementation((error: string) => error)
+
+  expect(instance).toThrow('Invalid render function value')
+  expect(consoleSpy).toReturnWith('The contents of the render function are invalid')
+})
+
 it('create instance with valid structure', () => {
   const instance = createInstance(vNodeWithTagName)
 
   checkSingleInstance(instance)
+})
+
+it('create null instance from renderless component', () => {
+  const componentInstance = new class WrongComponent extends Component {}
+  const instance = createInstance(componentInstance)
+
+  expect(instance).toBeNull()
 })
 
 it('create instance with children', () => {

@@ -1,6 +1,7 @@
 import patchDom from '@/dom/patchDom'
 import createElement from '@/dom/createElement'
 import vNodeWithDomProps from 'test/fixtures/vNodeWithDomProps'
+import vNodeWithTextContent from 'test/fixtures/vNodeWithTextContent'
 
 it('patch dom element based on a different vNode', () => {
   const newVNode = {
@@ -15,6 +16,20 @@ it('patch dom element based on a different vNode', () => {
   expect(element.outerHTML).toBe('<div class="my-element-class"></div>')
   patchDom(element, vNodeWithDomProps, newVNode)
   expect(element.outerHTML).toBe('<div class="another-class" style="width: 50px;"></div>')
+})
+
+it('patch dom element based on a text node', () => {
+  const newVNode = {
+    type: 'text',
+    textContent: 'Patch',
+    props: {},
+    domProps: {}
+  }
+  const element = createElement(vNodeWithTextContent)
+
+  expect(element.textContent).toBe('Test')
+  patchDom(element, vNodeWithTextContent, newVNode)
+  expect(element.textContent).toBe('Patch')
 })
 
 it('patch dom element removing attributes', () => {

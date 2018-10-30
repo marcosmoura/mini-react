@@ -2,6 +2,12 @@ import Component from '@/core/component'
 import ComponentClass from 'test/fixtures/componentClass'
 import vNodeWithTagName from 'test/fixtures/vNodeWithTagName'
 
+function checkSingleInstance (instance: TInstanceElement, expectedInstance: TInstanceElement) {
+  expect(instance).toEqual(expectedInstance)
+  expect(instance.render).toBeTruthy()
+  expect(instance.setState).toBeTruthy()
+}
+
 it('create instance for a component', () => {
   const componentInstance = new ComponentClass()
   const expectedInstance = {
@@ -10,20 +16,52 @@ it('create instance for a component', () => {
     state: {}
   }
 
-  expect(componentInstance).toEqual(expectedInstance)
-  expect(componentInstance.render).toBeTruthy()
-  expect(componentInstance.setState).toBeTruthy()
+  checkSingleInstance(componentInstance, expectedInstance)
 })
 
-it('setState change component state', () => {
+it('create instance for a renderless component', () => {
+  class RenderlessComponent extends Component {}
+
+  const componentInstance = new RenderlessComponent()
+  const expectedInstance = {
+    $instance: null,
+    props: {},
+    state: {}
+  }
+
+  checkSingleInstance(componentInstance, expectedInstance)
+  expect(componentInstance.render()).toBe(null)
+})
+
+it('setState change component state based on an Object', () => {
   const componentInstance = new ComponentClass()
   const newState = {
     test: 'test'
   }
 
   expect(componentInstance.state).toEqual({})
-  componentInstance.setState(newState)
+  componentInstance.setState(newState) // passing object directly
   expect(componentInstance.state).toEqual(newState)
+})
+
+it('setState change component state based on a Function', () => {
+  const componentInstance = new class ComponentWithInitialState extends Component {
+    state = {
+      test: 'test'
+    }
+
+    render () {
+      return vNodeWithTagName
+    }
+  }
+
+  expect(componentInstance.state).toEqual({ test: 'test' })
+  componentInstance.setState((oldState: any) => ({
+    test: oldState.test + ' 1'
+  })) // passing function to evaluate receiving oldState
+  expect(componentInstance.state).toEqual({
+    test: 'test 1'
+  })
 })
 
 it('props are immutable', () => {

@@ -23,5 +23,8 @@ module.exports = {
   },
   testMatch: [
     '**/__tests__/unit/{modules,features}/**/*.ts'
+  ],
+  collectCoverageFrom: [
+    '**/src/**/*.ts'
   ]
 }
