@@ -22,12 +22,14 @@ describe('Valid node values', () => {
   })
 
   it('create a VNode with tagName and children', () => {
+    const child = createVNode({
+      tagName: 'div'
+    })
     const actualNode = createVNode({
       tagName: 'div',
       children: [
-        createVNode({
-          tagName: 'div'
-        })
+        child,
+        child
       ]
     })
 

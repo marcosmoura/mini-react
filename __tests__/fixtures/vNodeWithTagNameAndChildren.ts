@@ -1,15 +1,18 @@
+const child = {
+  type: 'element',
+  props: {},
+  domProps: {},
+  children: [],
+  tagName: 'div'
+}
+
 export default {
   type: 'element',
   props: {},
   domProps: {},
   children: [
-    {
-      type: 'element',
-      props: {},
-      domProps: {},
-      children: [],
-      tagName: 'div'
-    }
+    child,
+    child
   ],
   tagName: 'div'
 }

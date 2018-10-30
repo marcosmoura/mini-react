@@ -20,7 +20,7 @@ export function getVNode (element: any): TVNode {
       }
     }
 
-    throwError('RENDER', 'The contents of the return function is invalid', errorContent)
+    throwError('RENDER', 'The contents of the render function are invalid', errorContent)
   }
 
   return newElement
