@@ -7,6 +7,7 @@ export function getVNode (element: any): TVNode {
 
   if (element.render) {
     newElement = element.render()
+    newElement.props = element.props
   }
 
   if (newElement != null && typeof newElement != 'object') {

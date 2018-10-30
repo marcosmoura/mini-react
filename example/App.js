@@ -280,7 +280,7 @@ class LimitLabel extends Component {
       class: label,
       children: [
         node({
-          textContent: `R$ `
+          textContent: 'R$ '
         }),
         node({
           tagName: 'strong',

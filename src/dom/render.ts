@@ -1,5 +1,6 @@
 import { createInstance, getVNode } from './createInstance'
 import patchDom from './patchDom'
+import createComponentInstance from '../core/createComponentInstance'
 
 let rootInstanceTree: TInstanceTree
 
@@ -67,7 +68,13 @@ function patchInstanceComponent (el: HTMLElement, element: TInstanceElement, ins
 
   if (newVNode.component) {
     if (element && element.component) {
-      return patch(el, element, null, true)
+      const newElement = createComponentInstance(element.component, element.props)
+      const newInstance = createInstance(newElement)
+
+      newInstance.domEl = instanceTree.domEl
+      newInstance.childInstances = instanceTree.childInstances
+
+      return patch(instanceTree.domEl, newInstance.vNode, newInstance)
     }
 
     return null
