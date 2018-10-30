@@ -12,10 +12,14 @@ function patchNewInstance (el: HTMLElement, element: TInstanceElement, replaceEL
   const newInstance = createInstance(element)
 
   if (newInstance) {
-    const domEl: Node = newInstance.domEl as Node
+    const domEl: HTMLElement = newInstance.domEl as HTMLElement
 
     if (replaceEL) {
-      el.replaceWith(domEl)
+      if (el.replaceWith) {
+        el.replaceWith(domEl)
+      } else {
+        el.outerHTML = domEl.outerHTML
+      }
     } else {
       el.appendChild(domEl)
     }

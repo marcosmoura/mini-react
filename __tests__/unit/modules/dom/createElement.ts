@@ -22,7 +22,7 @@ it('create an element based on a VNode with domProps', () => {
 })
 
 it('create an element based on a VNode with an event', () => {
-  const consoleSpy = jest.spyOn(console, 'log').mockImplementation((error: string) => error)
+  const consoleSpy = jest.spyOn(console, 'log').mockImplementation((log: string) => log)
   const element = createElement({
     ...vNodeWithTagName,
     domProps: {
