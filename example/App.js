@@ -271,10 +271,6 @@ class App extends Component {
 }
 
 class LimitLabel extends Component {
-  state = {
-    text: 'R$'
-  }
-
   render () {
     const { maxLimit, definedLimit } = this.props
     const totalValue = (maxLimit - definedLimit)
@@ -284,18 +280,14 @@ class LimitLabel extends Component {
       class: label,
       children: [
         node({
-          tagName: 'input',
-          oninput: (e) => this.setState({ text: e.target.value })
-        }),
-        node({
-          textContent: `${this.state.text} `
+          textContent: `R$ `
         }),
         node({
           tagName: 'strong',
           textContent: totalValue + ',00'
         }),
         node({
-          textContent: totalValue > 1 ? ' disponíveis' : ' disponível'
+          textContent: ' disponíveis'
         })
       ]
     })
