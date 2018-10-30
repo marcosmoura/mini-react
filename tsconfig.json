@@ -20,7 +20,7 @@
         "src/*"
       ],
       "test/*": [
-        "__tests__/*"
+        "__tests__/unit/*"
       ]
     },
     "sourceMap": true,

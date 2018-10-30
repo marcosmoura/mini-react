@@ -10,7 +10,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^test/(.*)$': '<rootDir>/__tests__/$1'
+    '^test/(.*)$': '<rootDir>/__tests__/unit/$1'
   },
   transform: {
     '^.+\\.ts$': 'ts-jest'
@@ -22,6 +22,6 @@ module.exports = {
     }
   },
   testMatch: [
-    '**/__tests__/{modules}/**/*.ts'
+    '**/__tests__/unit/{modules,features}/**/*.ts'
   ]
 }
