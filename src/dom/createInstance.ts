@@ -7,7 +7,13 @@ export function getVNode (element: any): TVNode {
 
   if (element.render) {
     newElement = element.render()
-    newElement.props = element.props
+
+    if (element.props) {
+      newElement.props = {
+        ...newElement.props,
+        ...element.props
+      }
+    }
   }
 
   if (newElement != null && typeof newElement != 'object') {
@@ -50,8 +56,8 @@ export function createInstance (element: TInstanceElement): TInstanceTree {
     }
 
     if (element.render) {
-      rawInstance.instance = element
       element.$instance = rawInstance
+      rawInstance.instance = element
     }
 
     return rawInstance
@@ -62,7 +68,6 @@ export function createInstance (element: TInstanceElement): TInstanceTree {
 
   return {
     ...newInstance,
-    instance: componentInstance,
-    componentInstance: newInstance
+    instance: componentInstance
   }
 }

@@ -1,14 +1,32 @@
 import { createInstance, getVNode } from '@/dom/createInstance'
+import createComponentInstance from '@/core/createComponentInstance'
 import vNodeWithTagName from 'test/fixtures/vNodeWithTagName'
 import vNodeWithTagNameAndChildren from 'test/fixtures/vNodeWithTagNameAndChildren'
+import vNodeWithComponentClass from 'test/fixtures/vNodeWithComponentClass'
+import ComponentClass from 'test/fixtures/componentClass';
 
 function checkSingleInstance (instance: TInstance) {
   const domEl: HTMLElement = instance.domEl as HTMLElement
 
-  expect(Array.isArray(instance.childInstances)).toBeTruthy()
+  expect(Array.isArray(instance.childInstances)).toBe(true)
   expect(domEl.outerHTML).toEqual('<div></div>')
   expect(instance.vNode).toEqual(vNodeWithTagName)
 }
+
+it('correctly gets the vNode based on an already set vNode', () => {
+  const vNode = getVNode(vNodeWithTagName)
+
+  expect(vNode).toEqual(vNodeWithTagName)
+})
+
+it('correctly gets the vNode based on a component instance', () => {
+  const newElement = createComponentInstance(ComponentClass)
+  const vNode = getVNode(newElement)
+  const instance = createInstance(vNode)
+
+  expect(vNode).toEqual(vNodeWithTagName)
+  checkSingleInstance(instance)
+})
 
 it('throw error when passing invalid VNode', () => {
   const instance = () => createInstance('string')
@@ -30,6 +48,13 @@ it('create instance with children', () => {
   expect(Array.isArray(instance.childInstances)).toBeTruthy()
 
   instance.childInstances.forEach((instance: TInstance) => checkSingleInstance(instance))
+})
+
+it('create instance based on a componentClass', () => {
+  const instance = createInstance(vNodeWithComponentClass)
+
+  checkSingleInstance(instance)
+  expect(instance.instance).toBeTruthy()
 })
 
 

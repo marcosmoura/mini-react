@@ -18,7 +18,6 @@ interface TRawNode {
 
 interface TInstance {
   instance?: any,
-  componentInstance?: any,
   domEl: TElement,
   vNode: TVNode,
   childInstances: Array<TInstanceTree>
