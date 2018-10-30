@@ -71,10 +71,15 @@ function patchInstanceComponent (el: HTMLElement, element: TInstanceElement, ins
       const newElement = createComponentInstance(element.component, element.props)
       const newInstance = createInstance(newElement)
 
-      newInstance.domEl = instanceTree.domEl
-      newInstance.childInstances = instanceTree.childInstances
+      if (newInstance && instanceTree) {
+        newInstance.domEl = instanceTree.domEl
+        newInstance.childInstances = instanceTree.childInstances
+        newInstance.vNode.props = element.props
 
-      return patch(instanceTree.domEl, newInstance.vNode, newInstance)
+        return patch(instanceTree.domEl as HTMLElement, newInstance.vNode, newInstance)
+      }
+
+      return patch(el, null, instanceTree)
     }
 
     return null
