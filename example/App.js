@@ -82,7 +82,7 @@ const input = css`
 `
 
 const label = css`
-  margin-top: 9px;
+  margin: 9px 0 0;
 `
 
 const rangeContainer = css`
@@ -142,7 +142,7 @@ const range = css`
 `
 
 class App extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -152,7 +152,7 @@ class App extends Component {
     }
   }
 
-  setDefinedLimit(e) {
+  setDefinedLimit (e) {
     window.requestAnimationFrame(() => {
       let definedLimit = parseInt(e.target.value || 0, 10)
 
@@ -164,7 +164,7 @@ class App extends Component {
     })
   }
 
-  setInputFocus(inputFocus) {
+  setInputFocus (inputFocus) {
     this.setState({ inputFocus })
   }
 
@@ -174,7 +174,7 @@ class App extends Component {
     return definedLimit * 100 / maxLimit
   }
 
-  render() {
+  render () {
     const { maxLimit, definedLimit, inputFocus } = this.state
 
     return node({
@@ -266,7 +266,7 @@ class App extends Component {
 }
 
 class LimitLabel extends Component {
-  render() {
+  render () {
     const { maxLimit, definedLimit } = this.props
     const totalValue = (maxLimit - definedLimit)
 

@@ -77,7 +77,11 @@ function patchInstanceComponent (el: HTMLElement, element: TInstanceElement, ins
   }
 
   if (oldVNode.tagName !== newVNode.tagName) {
-    return patch(el, newVNode, null, true)
+    let newInstance = patchNewInstance(el, newVNode, true)
+
+    newInstance = Object.assign({}, instanceTree, newInstance)
+
+    return newInstance
   }
 
   currentInstance.vNode = newVNode
