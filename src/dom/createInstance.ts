@@ -25,6 +25,13 @@ export function getVNode (element: any): TVNode {
   return newElement
 }
 
+export function bindInstance (rawInstance: TInstance, element: TInstanceElement) {
+  if (element.render) {
+    rawInstance.instance = element
+    element.$instance = rawInstance
+  }
+}
+
 export function createInstance (element: TInstanceElement): TInstanceTree {
   let vNode: TVNode = getVNode(element)
 
@@ -48,10 +55,7 @@ export function createInstance (element: TInstanceElement): TInstanceTree {
       rawInstance.childInstances = childInstances
     }
 
-    if (element.render) {
-      rawInstance.instance = element
-      element.$instance = rawInstance
-    }
+    bindInstance(rawInstance, element)
 
     return rawInstance
   }

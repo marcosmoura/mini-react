@@ -34,14 +34,12 @@ class Component<P = {}, S = {}> implements TComponent<P, S> {
       newState = { ...newComponentState }
     }
 
-    if (this.state !== newState) {
-      this.state = Object.freeze({
-        ...oldState,
-        ...newState
-      })
+    this.state = Object.freeze({
+      ...oldState,
+      ...newState
+    })
 
-      reRender(this)
-    }
+    reRender(this)
   }
 
   render () {

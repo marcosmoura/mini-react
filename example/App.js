@@ -79,6 +79,10 @@ const input = css`
   &:focus {
     outline: none;
   }
+
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
 `
 
 const label = css`
@@ -103,7 +107,8 @@ const rangeTrack = css`
   z-index: 1;
   appearance: none;
   pointer-events: none;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   background-color: ${colors.blue};
 `
 
@@ -197,7 +202,7 @@ class App extends Component {
                 node({
                   tagName: 'input',
                   class: input,
-                  type: 'text',
+                  type: 'number',
                   max: maxLimit,
                   maxLength: maxLimit.toString().length,
                   value: definedLimit,
@@ -245,7 +250,7 @@ class App extends Component {
                 node({
                   tagName: 'div',
                   class: rangeTrack,
-                  style: `width: ${this.getTrackWidth()}%`
+                  style: `width: calc(${this.getTrackWidth()}%)`
                 }),
                 node({
                   tagName: 'input',
@@ -266,6 +271,10 @@ class App extends Component {
 }
 
 class LimitLabel extends Component {
+  state = {
+    text: 'R$'
+  }
+
   render () {
     const { maxLimit, definedLimit } = this.props
     const totalValue = (maxLimit - definedLimit)
@@ -275,7 +284,11 @@ class LimitLabel extends Component {
       class: label,
       children: [
         node({
-          textContent: 'R$ '
+          tagName: 'input',
+          oninput: (e) => this.setState({ text: e.target.value })
+        }),
+        node({
+          textContent: `${this.state.text} `
         }),
         node({
           tagName: 'strong',

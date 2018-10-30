@@ -1,4 +1,4 @@
-import { createInstance, getVNode } from './createInstance'
+import { createInstance, getVNode, bindInstance } from './createInstance'
 import patchDom from './patchDom'
 import createComponentInstance from '../core/createComponentInstance'
 
@@ -68,9 +68,7 @@ function patchInstanceComponent (el: HTMLElement, element: TInstanceElement, ins
 
   if (newVNode.component) {
     if (element && element.component) {
-      const componentInstance = createComponentInstance(element.component, newVNode.props)
-
-      return patch(el, componentInstance, instanceTree)
+      return patch(el, element, null, true)
     }
 
     return null
