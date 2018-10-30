@@ -1,8 +1,4 @@
-const errorList = {
-  VNODE: 'Invalid Node',
-  RENDER: 'Invalid render function return',
-  DEFAULT: 'Unknown error'
-}
+import errorList from './errorList'
 
 function throwError (type: string, message?: string, content?: any): Error {
   let error = errorList[type]

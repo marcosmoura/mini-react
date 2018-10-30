@@ -23,7 +23,9 @@ function patchDom (el: TElement, prevVNode: TVNode, nextVNode: TVNode, isCreatin
     .forEach((propName: string) => elementToPatch.removeAttribute(propName))
 
   if (isCreating) {
-    nextPropsNames.forEach((propName: string) => !isEvent(propName) && elementToPatch.setAttribute(propName, nextProps[propName]))
+    nextPropsNames.forEach((propName: string) => (
+      !isEvent(propName) && elementToPatch.setAttribute(propName, nextProps[propName]))
+    )
   } else {
     nextPropsNames
       .filter((propName) => nextProps[propName] !== prevProps[propName] && !isEvent(propName))

@@ -1,5 +1,5 @@
 import Component from './core/component'
-import node from './core/node'
+import node from './core/createVNode'
 import render from './dom/render'
 
 const w = window as any

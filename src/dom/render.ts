@@ -1,6 +1,6 @@
 import { createInstance, getVNode } from './createInstance'
 import patchDom from './patchDom'
-import createComponentInstance from 'core/createComponentInstance'
+import createComponentInstance from '../core/createComponentInstance'
 
 let rootInstanceTree: TInstanceTree
 

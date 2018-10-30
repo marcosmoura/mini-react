@@ -7,6 +7,7 @@ import throwError from '../utils/throwError'
 function validateVNode (node: TRawNode): void {
   const { componentClass: component, tagName, children, textContent, props, ...domProps } = node
 
+
   if (!component && !tagName && !isValidTextContent(textContent)) {
     throwError('VNODE', 'The node is missing a component or a valid tagName', node)
   }
@@ -15,12 +16,20 @@ function validateVNode (node: TRawNode): void {
     throwError('VNODE', 'The componentClass is not a valid class Component', node)
   }
 
+  if (component && tagName) {
+    console.warn('When tagName and componentClass are provided, the tagName will be ignored', node)
+  }
+
   if (children && !Array.isArray(children)) {
     throwError('VNODE', 'The children is not a valid Array', node)
   }
 
   if (props && (Array.isArray(props) || typeof props !== 'object')) {
     throwError('VNODE', 'The props is not a valid Object', node)
+  }
+
+  if (!component && props) {
+    console.warn('The props attribute only works with componentClass', node)
   }
 
   Object.keys(domProps).forEach((propName) => {
@@ -49,7 +58,7 @@ function createVNode (node: TRawNode): TVNode {
   }
 
   if (isValidTextContent(textContent) && vNode.children) {
-    const childText: TVNode = {
+    const textVNode: TVNode = {
       domProps: {},
       props: {},
       textContent,
@@ -57,9 +66,9 @@ function createVNode (node: TRawNode): TVNode {
     }
 
     if (tagName || component) {
-      vNode.children.unshift(childText)
+      vNode.children.unshift(textVNode)
     } else {
-      return childText
+      return textVNode
     }
   }
 

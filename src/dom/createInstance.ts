@@ -1,6 +1,6 @@
-import createElement from './createElement'
 import createComponentInstance from '../core/createComponentInstance'
-import throwError from 'utils/throwError'
+import createElement from './createElement'
+import throwError from '../utils/throwError'
 
 export function getVNode (element: any): TVNode {
   let newElement = element

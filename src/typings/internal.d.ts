@@ -11,9 +11,9 @@ type TState = Object
 interface TRawNode {
   children?: TChildren,
   tagName: string,
-  textContent: TText,
+  textContent?: TText,
   componentClass?: TInstanceElement,
-  props: Object
+  props?: Object
 }
 
 interface TInstance {
