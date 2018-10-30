@@ -1,38 +1,31 @@
 import createComponentInstance from '@/core/createComponentInstance'
 import ComponentClass from 'test/fixtures/componentClass'
 
-it('create instance for components', () => {
-  const actualInstance = createComponentInstance(ComponentClass, {
-    count: 10
-  })
+const props = {
+  count: 10
+}
+
+function checkInstance (instance: TInstanceElement) {
   const expectedInstance = {
     $instance: null,
-    props: {
-      count: 10
-    },
+    props,
     state: {}
   }
 
-  expect(actualInstance).toEqual(expectedInstance)
-  expect(actualInstance.render).toBeDefined()
-  expect(actualInstance.setState).toBeDefined()
+  expect(instance).toEqual(expectedInstance)
+  expect(instance.render).toBeDefined()
+  expect(instance.setState).toBeDefined()
+}
+
+it('create instance for components', () => {
+  const actualInstance = createComponentInstance(ComponentClass, props)
+
+  checkInstance(actualInstance)
 })
 
 it('recreate instance for already created components', () => {
-  const props = {
-    count: 10
-  }
   const oldInstance = createComponentInstance(ComponentClass, props)
   const actualInstance = createComponentInstance(oldInstance, props)
-  const expectedInstance = {
-    $instance: null,
-    props: {
-      count: 10
-    },
-    state: {}
-  }
 
-  expect(actualInstance).toEqual(expectedInstance)
-  expect(actualInstance.render).toBeDefined()
-  expect(actualInstance.setState).toBeDefined()
+  checkInstance(actualInstance)
 })

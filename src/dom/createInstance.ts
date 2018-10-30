@@ -1,6 +1,7 @@
 import createComponentInstance from '../core/createComponentInstance'
 import createElement from './createElement'
 import throwError from '../utils/throwError'
+import deepFreeze from '../utils/deepFreeze'
 
 export function getVNode (element: any): TVNode {
   let newElement = element
@@ -9,10 +10,10 @@ export function getVNode (element: any): TVNode {
     newElement = element.render()
 
     if (element.props) {
-      newElement.props = {
+      newElement.props = deepFreeze({
         ...newElement.props,
         ...element.props
-      }
+      })
     }
   }
 
