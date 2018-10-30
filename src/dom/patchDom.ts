@@ -1,6 +1,5 @@
 import isEvent from '../utils/isEvent'
 import isValidTextContent from '../utils/isValidTextContent'
-import patchEvents from './patchEvents'
 
 function getEventName (event: string): string {
   return event.substring(2).toLowerCase()
@@ -70,7 +69,7 @@ function patchDom (el: TElement, prevVNode: TVNode, nextVNode: TVNode, isCreatin
     patchAttributesAndEvents(elementToPatch, nextProps, prevProps, nextPropsNames)
   }
 
-  return patchEvents(elementToPatch, prevVNode, nextVNode)
+  return elementToPatch
 }
 
 export default patchDom
