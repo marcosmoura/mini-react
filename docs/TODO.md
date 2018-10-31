@@ -35,24 +35,27 @@
 [x] Create application layout
   [x] Refactor code to improve separation of concerns
 [x] Create application validations
-[ ] Create better build tools
-[ ] Create documentation
-  [ ] Included features
-  [ ] Disclaimer about SVG
+[x] Create better build tools
+[x] Create documentation
+  [x] Included features
+  [x] Disclaimer about SVG
   [x] Build process
   [x] Code Structure
-  [ ] Separation of concerns
-  [ ] Development process
-  [ ] Steps to achieve all the included features
-    [ ] Unit tests
-    [ ] Render function
-    [ ] Naive rerender
-    [ ] Sub components
-    [ ] setState + props
-    [ ] Attempt to diff/patch
-    [ ] Wrapping up
-    [ ] e2e tests
-  [ ] Comparison between React, Mini React and Others
+  [x] Separation of concerns
+  [x] Development process
+  [x] Steps to achieve all the included features
+    [x] API definition
+      [x] Mounting Components
+      [x] Creating Components
+    [x] Render function
+    [x] Creating the VNode structure
+    [x] Creating elements
+    [x] Naive rerender
+    [x] Subcomponents
+    [x] setState + props
+    [x] Diff/Patch
+    [x] Wrapping up and refactoring
+    [x] Example Application and E2E tests
 
-[ ] Refactor code to better match the scope and improve separation of concerns
-[ ] Revisit unit tests to cover all missing scenarios after refactor
+[x] Refactor code to better match the scope and improve separation of concerns
+[x] Revisit unit tests to cover all missing scenarios after refactor
