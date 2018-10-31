@@ -13,11 +13,7 @@ function patchNewInstance (el: HTMLElement, element: TInstanceElement, replaceEL
     const domEl: HTMLElement = newInstance.domEl as HTMLElement
 
     if (replaceEL) {
-      if (el.replaceWith) {
-        el.replaceWith(domEl)
-      } else {
-        el.outerHTML = domEl.outerHTML
-      }
+      el.replaceWith(domEl)
     } else {
       el.appendChild(domEl)
     }
@@ -40,18 +36,14 @@ function removeDomNode (el: HTMLElement): null {
   return null
 }
 
-function createCommentProxy (el: HTMLElement, instanceTree: TInstanceTree): TInstanceTree {
+function createCommentProxy (el: HTMLElement, instanceTree: any): TInstanceTree {
   const commentProxy = document.createComment(' MINIREACT ELEMENT ')
 
-  if (instanceTree) {
-    instanceTree.domEl = commentProxy
+  instanceTree.domEl = commentProxy
 
-    el.replaceWith(instanceTree.domEl)
+  el.replaceWith(instanceTree.domEl)
 
-    return instanceTree
-  }
-
-  return null
+  return instanceTree
 }
 
 function patchInstanceComponent (el: HTMLElement, element: TInstanceElement, instanceTree: TInstanceTree): TInstanceTree {

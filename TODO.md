@@ -10,39 +10,27 @@
 [x] Attempt to create a "patch" cycle updating the dom nodes instead of recreating the entire structure again
 [x] Attempt to create a more robust diff process to patch dom based on vnode
 [x] Create immutable state
-[ ] Create immutable props
-[ ] Add validations on each step
+[x] Create immutable props
+[x] Add validations on each step
   [x] Add validation to vnode creation
   [x] Add validation to render function
   [x] Add validation to createElement function
-  [ ] Add validation to setState
-  [ ] Add validation to props
 
-[ ] e2e tests - **Optional**
-  [ ] Setup Nightwatch
-  [ ] Create application e2e
+[x] e2e tests - **Optional**
+  [x] Setup Testcafe
+  [x] Create application e2e
 
-[ ] Unit Tests
-  [ ] modules
-    [ ] core
-      [ ] component
+[x] Unit Tests
+  [x] modules
+    [x] core
+      [x] component
       [x] createComponentInstance
       [x] createVNode
-    [ ] dom
+    [x] dom
       [x] patchDom
       [x] createElement
       [x] createInstance
-      [ ] render
-
-  [ ] features
-    [ ] diff/patch
-    [ ] dom elements don't change after patch
-    [ ] constructor
-    [ ] props
-    [ ] rerender
-    [ ] setState
-    [ ] setState + props
-    [ ] dom events + setState
+      [x] render
 
 [x] Create application layout
   [ ] Refactor code to improve separation of concerns

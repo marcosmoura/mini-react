@@ -1,7 +1,6 @@
 const errorList = {
   VNODE: 'Invalid Node',
-  RENDER: 'Invalid render function value',
-  DEFAULT: 'Unknown error'
+  RENDER: 'Invalid render function value'
 }
 
 export default errorList

@@ -7,7 +7,6 @@ import throwError from '../utils/throwError'
 function validateVNode (node: TRawNode): void {
   const { componentClass: component, tagName, children, textContent, props, ...domProps } = node
 
-
   if (!component && !tagName && !isValidTextContent(textContent)) {
     throwError('VNODE', 'The node is missing a component or a valid tagName', node)
   }

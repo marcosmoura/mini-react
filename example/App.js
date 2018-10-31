@@ -1,7 +1,6 @@
-'use strict'
-
 import { Component, node } from '../dist/mini-react.umd'
-import { css } from 'emotion'
+import { css, injectGlobal } from 'emotion'
+import LimitLabel from './LimitLabel'
 
 const colors = {
   text: '#4A4A4A',
@@ -57,7 +56,7 @@ const inputLabel = css`
   font-size: 48px;
   line-height: normal;
 
-  span {
+  strong {
     opacity: 0;
   }
 `
@@ -68,6 +67,7 @@ const input = css`
   top: -2px;
   left: 3px;
   z-index: 1;
+  -moz-appearance:textfield;
   border: none;
   background: none;
   color: ${colors.blue};
@@ -85,10 +85,6 @@ const input = css`
   }
 `
 
-const label = css`
-  margin: 9px 0 0;
-`
-
 const rangeContainer = css`
   width: 85%;
   max-width: 500px;
@@ -99,7 +95,7 @@ const rangeContainer = css`
   position: relative;
 `
 
-const rangeTrack = css`
+const track = `
   height: 16px;
   position: absolute;
   top: -4px;
@@ -110,6 +106,37 @@ const rangeTrack = css`
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   background-color: ${colors.blue};
+`
+
+const rangeTrack = css`
+  ${track}
+`
+
+injectGlobal`
+  @supports (-moz-appearance: none) {
+    #range-container div {
+      display: none;
+    }
+  }
+`
+
+const thumb = `
+  width: 40px;
+  height: 40px;
+  position: relative;
+  z-index: 2;
+  appearance: none;
+  border-radius: 50%;
+  background-color: ${colors.darkBlue};
+  border: none;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, .4);
+  transition: ${defaultTransition};
+`
+
+const thumbActive = `
+  width: 44px;
+  height: 44px;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, .4);
 `
 
 const range = css`
@@ -128,21 +155,27 @@ const range = css`
   }
 
   &:active::-webkit-slider-thumb {
-    width: 44px;
-    height: 44px;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, .4);
+    ${thumbActive}
+  }
+
+  &:active::-moz-range-thumbActive {
+    ${thumbActive}
+  }
+
+  &::-moz-range-thumb {
+    ${thumb}
   }
 
   &::-webkit-slider-thumb {
-    width: 40px;
-    height: 40px;
-    position: relative;
-    z-index: 2;
-    appearance: none;
-    border-radius: 50%;
-    background-color: ${colors.darkBlue};
-    box-shadow: 0 4px 5px rgba(0, 0, 0, .4);
-    transition: ${defaultTransition};
+    ${thumb}
+  }
+
+  &::-moz-range-track {
+    background: none;
+  }
+
+  &::-moz-range-progress {
+    ${track}
   }
 `
 
@@ -184,6 +217,7 @@ class App extends Component {
 
     return node({
       tagName: 'div',
+      id: 'app',
       class: appContainer,
       children: [
         node({
@@ -193,10 +227,12 @@ class App extends Component {
         }),
         node({
           tagName: 'div',
+          id: 'app-content',
           class: content,
           children: [
             node({
               tagName: 'div',
+              id: 'input-container',
               class: inputFocus ? `${inputContainer} ${inputContainerFocus}` : inputContainer,
               children: [
                 node({
@@ -213,12 +249,13 @@ class App extends Component {
                 node({
                   tagName: 'div',
                   class: inputLabel,
+                  id: 'input-label',
                   children: [
                     node({
                       textContent: 'R$ '
                     }),
                     node({
-                      tagName: 'span',
+                      tagName: 'strong',
                       textContent: definedLimit
                     }),
                     node({
@@ -238,6 +275,7 @@ class App extends Component {
             node({
               tagName: 'div',
               class: rangeContainer,
+              id: 'range-container',
               children: [
                 node({
                   tagName: 'span',
@@ -250,6 +288,7 @@ class App extends Component {
                 node({
                   tagName: 'div',
                   class: rangeTrack,
+                  id: 'range-track',
                   style: `width: calc(${this.getTrackWidth()}%)`
                 }),
                 node({
@@ -266,30 +305,6 @@ class App extends Component {
           ]
         })
       ],
-    })
-  }
-}
-
-class LimitLabel extends Component {
-  render () {
-    const { maxLimit, definedLimit } = this.props
-    const totalValue = (maxLimit - definedLimit)
-
-    return node({
-      tagName: 'p',
-      class: label,
-      children: [
-        node({
-          textContent: 'R$ '
-        }),
-        node({
-          tagName: 'strong',
-          textContent: totalValue + ',00'
-        }),
-        node({
-          textContent: ' disponíveis'
-        })
-      ]
     })
   }
 }
