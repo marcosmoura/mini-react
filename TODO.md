@@ -39,8 +39,8 @@
 [ ] Create documentation
   [ ] Included features
   [ ] Disclaimer about SVG
-  [ ] Build process
-  [ ] Code Structure
+  [x] Build process
+  [x] Code Structure
   [ ] Separation of concerns
   [ ] Development process
   [ ] Steps to achieve all the included features

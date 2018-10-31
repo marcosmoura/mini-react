@@ -15,8 +15,6 @@
     "build:lib": "rollup -c ./rollup.config.js --environment=target:production",
     "test:unit": "jest --config jest.config.js",
     "test:unit:watch": "yarn test:unit --verbose --watch",
-    "test:unit:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --watch --config jest.config.js",
-    "test:unit:updateSnapshot": "yarn test:unit --updateSnapshot",
     "test:unit:coverage": "yarn test:unit --coverage",
     "test:unit:coverage:open": "yarn test:unit:coverage && open coverage/lcov-report/index.html",
     "test:e2e:firefox-headless": "yarn testcafe 'firefox:headless' __tests__/e2e/app.js",
