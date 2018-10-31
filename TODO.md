@@ -33,7 +33,7 @@
       [x] render
 
 [x] Create application layout
-  [ ] Refactor code to improve separation of concerns
+  [x] Refactor code to improve separation of concerns
 [x] Create application validations
 [ ] Create better build tools
 [ ] Create documentation
