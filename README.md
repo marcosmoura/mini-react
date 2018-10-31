@@ -10,26 +10,22 @@
 
 ## Setup
 
-#### Install Node.js
-Install Node.js: [Node.js](https://nodejs.org/en/download/)
-
-
-#### Install Tools:
-
+#### Install Node.js and Yarn
+- [Node.js](https://nodejs.org/en/download/)
 - [Yarn](https://yarnpkg.com/lang/en/docs/install/#mac-stable)
 
 
 #### Install project dependencies:
 
-- `yarn`
+`yarn`
 
 
 ## Running Application Example
 
 There are several tasks that we can run:
 
-- `dev`: Build the library for dev purposes and start a dev server with the Example app
-- `build:lib`: Build the library for production
+- `yarn dev`: Build the library for dev purposes and start a dev server with the Example app
+- `yarn build:lib`: Build the library for production
 
 
 ## Unit Tests
@@ -42,10 +38,10 @@ I used **Jest** for the unit tests and, right now, the code coverage is pretty g
 
 To run the Unit tests:
 
-- `test:unit`: Run the unit tests on every test case
-- `test:unit:watch`: Run the unit tests on watch mode
-- `test:unit:coverage`: Generates a coverage report inside the `coverage` folder
-- `test:unit:coverage:open`: Generates a coverage report and open it on your web browser
+- `yarn test:unit`: Run the unit tests on every test case
+- `yarn test:unit:watch`: Run the unit tests on watch mode
+- `yarn test:unit:coverage`: Generates a coverage report inside the `coverage` folder
+- `yarn test:unit:coverage:open`: Generates a coverage report and open it on your web browser
 
 
 ## E2E Tests
@@ -54,15 +50,15 @@ To make sure that the App is rendering correctly on every browser, I create some
 
 To run the E2E tests:
 
-- `test:e2e:firefox-headless`: Run the test on Firefox in Headless mode (without open the browser tab)
-- `test:e2e:chrome-headless`: Run the test on Chrome in Headless mode (without open the browser tab)
-- `test:e2e:chrome-canary-headless`: Run the test on Chrome Canary in Headless mode (without open the browser tab)
-- `test:e2e:safari`: Run the test on Safari opening on a full browser
-- `test:e2e:firefox`: Run the test on Firefox opening on a full browser
-- `test:e2e:chrome`: Run the test on Chrome opening on a full browser
-- `test:e2e:chrome-canary`: Run the test on Chrome Canary opening on a full browser
-- `test:e2e:all`: Run every single tests on every full web browser
-- `test:e2e:all-headless`: Run every single tests on every browser in Headless mode
+- `yarn test:e2e:firefox-headless`: Run the test on Firefox in Headless mode (without open the browser tab)
+- `yarn test:e2e:chrome-headless`: Run the test on Chrome in Headless mode (without open the browser tab)
+- `yarn test:e2e:chrome-canary-headless`: Run the test on Chrome Canary in Headless mode (without open the browser tab)
+- `yarn test:e2e:safari`: Run the test on Safari opening on a full browser
+- `yarn test:e2e:firefox`: Run the test on Firefox opening on a full browser
+- `yarn test:e2e:chrome`: Run the test on Chrome opening on a full browser
+- `yarn test:e2e:chrome-canary`: Run the test on Chrome Canary opening on a full browser
+- `yarn test:e2e:all`: Run every single tests on every full web browser
+- `yarn test:e2e:all-headless`: Run every single tests on every browser in Headless mode
 
 Is worth to notice that, if you don't have a Chrome Canary on your machine, the `test:e2e:all` and `test:e2e:all-headless` will fail, as it depends on them. As an alternative, we can replace Chrome Canary with Chrome, like that: `yarn test:e2e:firefox-headless; yarn test:e2e:chrome-headless`
 
