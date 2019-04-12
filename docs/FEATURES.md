@@ -19,7 +19,7 @@ The library do not implement some of the main features of React, like:
 - Props with support to Prop Types
 
 
-# What isn't includes
+# What isn't included
 
 - Lifecycles other than class constructor and render (like componentWillUnmount, componentDidMount...)
 - Support to JSX
