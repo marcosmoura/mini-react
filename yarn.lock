@@ -6740,9 +6740,9 @@ repeating@^2.0.0:
     is-finite "^1.0.0"
 
 replicator@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/replicator/-/replicator-1.0.2.tgz#f21812f28f3b853a34795a7d52814581df652fe1"
-  integrity sha512-y2yeUd+NDfSk6SHELNJfMwglmjDYxw65VKgDYMEYGLdJVnqz/sER0mFJbHrawqKfQoVRJ5vN3pSouL9ZLUVd8w==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/replicator/-/replicator-1.0.5.tgz#f1e56df7e276a62afe80c2248b8ac03896f4708f"
+  integrity sha512-saxS4y7NFkLMa92BR4bPHR41GD+f/qoDAwD2xZmN+MpDXgibkxwLO2qk7dCHYtskSkd/bWS8Jy6kC5MZUkg1tw==
 
 request-promise-core@1.1.1:
   version "1.1.1"
